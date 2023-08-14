@@ -44,7 +44,7 @@ namespace LinqToSql
 
             //6. Вибрати книгу з максимальною кількістю сторінок не американського автора
             Console.WriteLine("\n\n6. Вибрати книгу з максимальною кількістю сторінок не американського автора");
-            GetBookByByMaxPageExcludeCountry("USA", libraryDataContext);
+            GetBookByMaxPageExcludeCountry("USA", libraryDataContext);
 
 
             //7. Вибрати автора, який має найменше книг в базі даних
@@ -94,7 +94,7 @@ namespace LinqToSql
             PrintBooks(books);
         }
 
-        static void GetBookByByMaxPageExcludeCountry(string country, LibraryDataContext dataContext)
+        static void GetBookByMaxPageExcludeCountry(string country, LibraryDataContext dataContext)
         {
             var books = dataContext.Books.Where(n => n.Authors.Countries.Name != country).OrderByDescending(n=>n.PageCount).Take(1);
             PrintBooks(books);
@@ -109,7 +109,7 @@ namespace LinqToSql
 
         static void GetAuthorsNamesExcludeCountry(string country, LibraryDataContext dataContext)
         {
-            var authorsNames = dataContext.Authors.Where(n => n.Countries.Name != "China").Select(n => n.Name).OrderBy(n => n);
+            var authorsNames = dataContext.Authors.Where(n => n.Countries.Name != country).Select(n => n.Name).OrderBy(n => n);
             foreach (var name in authorsNames)
                 Console.WriteLine($"     {name}");
         }
