@@ -18,9 +18,9 @@ namespace LinqToSql
             LibraryDataContext libraryDataContext= new LibraryDataContext(ConfigurationManager.ConnectionStrings["LibraryConnectionString"].ConnectionString);
 
 
-            //1 - Вибрати всі книги, кількість сторінок в яких більше 100
-            Console.WriteLine("1 - Вибрати всі книги, кількість сторінок в яких більше 100");
-            GetBooksByPageCount(100, libraryDataContext);
+            //1 - Вибрати всі книги, кількість сторінок в яких більше 200
+            Console.WriteLine("1 - Вибрати всі книги, кількість сторінок в яких більше 200");
+            GetBooksByPageCount(200, libraryDataContext);
 
             //2. Вибрати всі книги, ім’я яких починається на літеру ‘А’ або ‘а’
             Console.WriteLine("\n\n2. Вибрати всі книги, ім’я яких починається на літеру ‘А’ або ‘а’");
@@ -66,7 +66,7 @@ namespace LinqToSql
 
         static void GetBooksByPageCount(int pageCount,LibraryDataContext dataContext)
         {
-            var books = dataContext.Books.Where(n => n.PageCount > 100);
+            var books = dataContext.Books.Where(n => n.PageCount > pageCount);
             PrintBooks(books);
         }
 
