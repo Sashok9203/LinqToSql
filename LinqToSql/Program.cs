@@ -96,14 +96,13 @@ namespace LinqToSql
 
         static void GetBookByMaxPageExcludeCountry(string country, LibraryDataContext dataContext)
         {
-            var books = dataContext.Books.Where(n => n.Authors.Countries.Name != country).OrderByDescending(n=>n.PageCount).Take(1);
-            PrintBooks(books);
+            var book = dataContext.Books.Where(n => n.Authors.Countries.Name != country).OrderByDescending(n=>n.PageCount).First();
+            PrintBook(book);
         }
 
         static void GetFewestBooksAuthor(LibraryDataContext dataContext)
         {
-            var authors = dataContext.Authors.OrderBy(n => n.Books.Count).Take(1).Select(n=> new {n.Surname,n.Name, n.Books.Count });
-            foreach(var author in authors)
+            var author = dataContext.Authors.OrderBy(n => n.Books.Count).Select(n => new { n.Surname, n.Name, n.Books.Count }).First();
             Console.WriteLine($"      {author.Name} {author.Surname}  - {author.Count} books");
         }
 
@@ -116,9 +115,8 @@ namespace LinqToSql
 
         static void GetCountryByMaxAuthors(LibraryDataContext dataContext)
         {
-            var countrys = dataContext.Countries.OrderByDescending(n => n.Authors.Count).Take(1).Select(n => new {n.Name, n.Authors.Count });
-            foreach(var country in countrys)
-               Console.WriteLine($"     {country.Name}  - {country.Count} authors");
+            var country = dataContext.Countries.OrderByDescending(n => n.Authors.Count).Select(n => new { n.Name, n.Authors.Count }).First();
+            Console.WriteLine($"     {country.Name}  - {country.Count} authors");
         }
 
         static void PrintBook(Books book) => Console.WriteLine($"     \"{book.Name}\" {book.Authors.Name} {book.Authors.Surname}  [{book.Authors.Countries.Name}] - ({book.PageCount} pg.)");
